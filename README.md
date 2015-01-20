@@ -1,2 +1,2 @@
 # mattgyver
-Baseline json and gulpfile inits for new projects. 
+Baseline bower.json, package.json, and gulpfile.js inits for new projects. 
