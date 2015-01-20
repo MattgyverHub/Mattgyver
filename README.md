@@ -30,13 +30,17 @@ This will get all the baseline goodies added to the site; Bourbon, Neat, Bitters
 
 **All of the following can be had by using the bower.json file in a build. This list is just my notes.** Some things like jQuery come with other dependencies. Really just thinking out loud here and coming up with a process.
 
-1. **Install Bourbon:** Type *bower install --save bourbon*
-2. **Install Bourbon Neat:** Type *bower install --save neat*
-3. **Install Bourbon Bitters:** Type *gem install bitters* This one is a gem, so it's deployed differently.
-4. **Install Normalize.css:** Type *bower install --save normalize.css* Note to self, is this needed with Bourbon?
-5. **Install FontAwesome:** Type *bower install --save fontawesome* 
-6. **Install jQuery:** Type *bower install --save jquery* 
-7. **Install jQuery:** Type *bower install --save modernizr* 
-8. **Install jQuery:** Type *bower install --save detectizr* Might need to resolve this to 2.8.3 as of this note
+### Start with the basics:
 
-To be continued...
+1. **Install Normalize.css:** Type *bower install --save normalize.css*
+2. **Install Bourbon:** Type *bower install --save bourbon*
+3. **Install Bourbon Neat:** Type *bower install --save neat*
+4. **Install Bourbon Bitters:** Type *gem install bitters* (This one is a gem, so it's deployed differently.)
+
+### Add in the useful tools
+
+1. **Install jQuery:** Type *bower install --save jquery* 
+2. **Install modernizr:** Type *bower install --save modernizr* 
+3. **Install detectizr:** Type *bower install --save detectizr* (Might need to resolve this to 2.8.3 as of this note/)
+
+To be continued... I have yet to figure out how to use Browserify. Baby steps.
