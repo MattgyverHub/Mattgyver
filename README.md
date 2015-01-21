@@ -29,72 +29,96 @@ This is the manual bit where you plan the folder structure for your css, images,
 
 This will get all the baseline goodies added to the site; Bourbon, Neat, Bitters, jQuery, etc. Bower will be the main tool to gather the assets and put them into the project. These steps are the equivalent of hunting down all the latest versions of things and copying them into the js/ css/ and fonts/ (et. all) folders. Get ready for **PowerShell GO part 3!** All of the following items will be run from the PowerShell.
 
-**All of the following can be had by using the bower.json file in a build. This list is just my notes.** Some things like jQuery come with other dependencies. Really just thinking out loud here and coming up with a process.
+**All of the following can be had by using the bower.json file in a build. This list is just my notes.** Some things like jQuery come with other dependencies. Really just thinking out loud here and coming up with a process for when we begin new sites.
 
 ### Start with the basics:
 
-1. **Install Normalize.css:** Type *bower install normalize.css*
-2. **Install Bourbon:** Type *bower install --save bourbon*
-3. **Install Bourbon Neat:** Type *bower install --save neat*
-4. **Install Bourbon Bitters:** Type *gem install bitters* (This one is a gem, so it's deployed differently.)
+1. **Install Bourbon:** Type *bower install --save bourbon*
+2. **Install Bourbon Neat:** Type *bower install --save neat*
+3. **Install Bourbon Bitters:** Type *gem install bitters* (one time only - won't need to do this on future setups)
+4. then "cd " into the scss directory and type *bitters install*. Bitters is the UI chrome skin basically, similar in appearance to Bootstrap's chrome.
 
-### Add in the useful tools
+### Add vis Bower any useful tools. It's probably easier for me to still manually gather these libs to keep the overall project files to a minimum. Building sites in the cloud keeps the file qty to a reasonable amount by hand-gathering any specific js libs. I don't need the entire jQuery assets and source, so only grab the single required file.
 
 1. **Install jQuery:** Type *bower install --save jquery* 
 2. **Install modernizr:** Type *bower install --save modernizr* 
 3. **Install detectizr:** Type *bower install --save detectizr* (Might need to resolve this to 2.8.3 as of this note/)
+4. To be continued... I have yet to figure out how to use Browserify. Baby steps.
 
-To be continued... I have yet to figure out how to use Browserify. Baby steps.
+## **Step 4:** Add Gulp to do all the task running
 
-- npm install gulp --save-dev
-- npm install gulp-concat --save-dev
-- npm install gulp-uglify gulp-rename --save-dev
-- npm install gulp-ruby-sass --save-dev
+// Include plugins
+npm install --save-dev gulp 
+npm install --save-dev gulp-jshint 
+npm install --save-dev gulp-concat 
+npm install --save-dev gulp-minify-css
+npm install --save-dev gulp-uglify 
+npm install --save-dev gulp-rename 
+npm install --save-dev gulp-ruby-sass 
+npm install --save-dev gulp-notify 
+
 - Include in the gulpfile.js: 
 ```
+// Include gulp
 var gulp = require('gulp');
-var sass = require('gulp-ruby-sass');
+
+// Define base folders
+var src = 'assets/';
+var dest = 'assets/app/';
+
+// Lint the javascript
+var jshint = require('gulp-jshint');
+
+// Include plugins
 var concat = require('gulp-concat');
+var minifycss = require('gulp-minify-css');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
-var imagemin = require('gulp-imagemin');
-var cache = require('gulp-cache');
+var sass = require('gulp-ruby-sass');
+var notify = require('gulp-notify');
 
- // Concatenate JS Files
+// Lint Task
+gulp.task('lint', function() {
+    return gulp.src(src + 'js/*.js')
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'));
+});
+
+// Concatenate & Minify JS
 gulp.task('scripts', function() {
-    return gulp.src(['js/libs/*.js', 'js/main.js'])
-      .pipe(concat('app.js'))
-      .pipe(rename({suffix: '.min'}))
-      .pipe(uglify())
-      .pipe(gulp.dest('js'));
+    return gulp.src(src + 'js/**/*.js')
+		.pipe(concat('main.js'))
+		.pipe(gulp.dest(dest + 'js'))
+		.pipe(rename({suffix: '.min'}))
+		.pipe(uglify())
+		.pipe(gulp.dest(dest + 'js'))
+		.pipe(notify({ message: 'Complete: Scripts compiled' }));
 });
 
-// Concatenate and compile SASS to CSS
+// Compile CSS from Sass files
 gulp.task('sass', function() {
-    return gulp.src(['css/libs/*.css', 'css/main.scss'])
-    	//.pipe(concat('app.css'))
+    return gulp.src(src + 'scss/*.scss')
         .pipe(rename({suffix: '.min'}))
-        .pipe(sass({style: 'compressed'}))
-        .pipe(gulp.dest('css'));
+        .pipe(sass({style: 'compact'}))
+        .pipe(gulp.dest(dest + 'css'))
+        .pipe(notify({ message: 'Complete: Am fat and sassy' }));
 });
 
-// Image optimizer for all types; jpg, png, gif
+// Compress images 
 gulp.task('images', function() {
-  return gulp.src('img_highres/**/*')
-    .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
-    .pipe(gulp.dest('img'));
+	return gulp.src(src + 'images/**/*')
+		.pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
+		.pipe(gulp.dest(dest + 'img'));
 });
 
-// The watcher in the water
+
+ // Watch for changes in files and run their task
 gulp.task('watch', function() {
-	// Watch .js files
-	gulp.watch('js/*.js', ['scripts']);
-	// Watch .scss files
-	gulp.watch('css/*.scss', ['sass']);
-	// Watch image files
-	gulp.watch('img/**/*', ['images']);
+	gulp.watch(src + 'js/**/*.js', ['lint', 'scripts']);
+	gulp.watch(src + 'scss/**/*.scss', ['sass']);
 });
 
  // Default Task
-gulp.task('default', ['scripts', 'sass', 'images', 'watch']);
+ // Type: gulp in the PowerShell to begin. CTRL+C to cancel or stop the process
+gulp.task('default', ['lint', 'scripts', 'sass', 'watch']);
 ```
