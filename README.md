@@ -12,6 +12,7 @@ This is a one-time deal to get the primary frameworks installed on your machine.
 4. **PowerShell GO!** Open your Windows PowerShell. Run > PowerShell, or do a quick system search for "PowerShell." You may notice PowerShell looks like a DOS or command window. It basically is, except a lot more system commands are exposed for use. 
 5. **Install Bower** Once you are in the PowerShell, type the following: *npm install -g bower* This will add the bower framework and commands globally to any future projects.
 6. **Install SASS** Next in the PowerShell type *gem install sass* This will add the sass framework and features. 
+7. **Install Gulp** Finally we add Gulp to the project. *npm install -g gulp*
 
 ## **Step 2:** Setting up the project folders and initial settings.
 
@@ -32,7 +33,7 @@ This will get all the baseline goodies added to the site; Bourbon, Neat, Bitters
 
 ### Start with the basics:
 
-1. **Install Normalize.css:** Type *bower install --save normalize.css*
+1. **Install Normalize.css:** Type *bower install normalize.css*
 2. **Install Bourbon:** Type *bower install --save bourbon*
 3. **Install Bourbon Neat:** Type *bower install --save neat*
 4. **Install Bourbon Bitters:** Type *gem install bitters* (This one is a gem, so it's deployed differently.)
@@ -44,3 +45,56 @@ This will get all the baseline goodies added to the site; Bourbon, Neat, Bitters
 3. **Install detectizr:** Type *bower install --save detectizr* (Might need to resolve this to 2.8.3 as of this note/)
 
 To be continued... I have yet to figure out how to use Browserify. Baby steps.
+
+- npm install gulp --save-dev
+- npm install gulp-concat --save-dev
+- npm install gulp-uglify gulp-rename --save-dev
+- npm install gulp-ruby-sass --save-dev
+- Include in the gulpfile.js: 
+```
+var gulp = require('gulp');
+var sass = require('gulp-ruby-sass');
+var concat = require('gulp-concat');
+var uglify = require('gulp-uglify');
+var rename = require('gulp-rename');
+var imagemin = require('gulp-imagemin');
+var cache = require('gulp-cache');
+
+ // Concatenate JS Files
+gulp.task('scripts', function() {
+    return gulp.src(['js/libs/*.js', 'js/main.js'])
+      .pipe(concat('app.js'))
+      .pipe(rename({suffix: '.min'}))
+      .pipe(uglify())
+      .pipe(gulp.dest('js'));
+});
+
+// Concatenate and compile SASS to CSS
+gulp.task('sass', function() {
+    return gulp.src(['css/libs/*.css', 'css/main.scss'])
+    	//.pipe(concat('app.css'))
+        .pipe(rename({suffix: '.min'}))
+        .pipe(sass({style: 'compressed'}))
+        .pipe(gulp.dest('css'));
+});
+
+// Image optimizer for all types; jpg, png, gif
+gulp.task('images', function() {
+  return gulp.src('img_highres/**/*')
+    .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
+    .pipe(gulp.dest('img'));
+});
+
+// The watcher in the water
+gulp.task('watch', function() {
+	// Watch .js files
+	gulp.watch('js/*.js', ['scripts']);
+	// Watch .scss files
+	gulp.watch('css/*.scss', ['sass']);
+	// Watch image files
+	gulp.watch('img/**/*', ['images']);
+});
+
+ // Default Task
+gulp.task('default', ['scripts', 'sass', 'images', 'watch']);
+```
