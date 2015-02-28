@@ -1,0 +1,125 @@
+/* ************************************************************************ */
+/* Google Fonts: http://www.google.com/fonts#UsePlace:use/Collection:Roboto */
+/* ************************************************************************ */
+// Choose the @import line to add the font stack from Google's CDN
+@import url(http://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700);
+
+$fs-roboto-reg : 'Roboto', sans-serif;
+
+// Basic usage
+/*
+.example {
+    font-family:$fs-roboto-reg;
+}
+*/
+
+@mixin roboto-thin($fontcolor:$black) { font-family:$fs-roboto-reg; font-weight:100; color:#{$fontcolor}; }
+@mixin roboto-lite($fontcolor:$black) { font-family:$fs-roboto-reg; font-weight:300; color:#{$fontcolor}; }
+@mixin roboto-reg($fontcolor:$black) { font-family:$fs-roboto-reg; font-weight:400; color:#{$fontcolor}; }
+@mixin roboto-bold($fontcolor:$black) { font-family:$fs-roboto-reg; font-weight:500; color:#{$fontcolor}; }
+@mixin roboto-black($fontcolor:$black) { font-family:$fs-roboto-reg; font-weight:700; color:#{$fontcolor}; }
+
+// Example mixin usage: 
+/*
+.example {
+    @include roboto-thin(#ffffff);      <-- color is optional, defaults to black
+    @include roboto-thin($red);         <-- or use a $variable
+}
+*/
+
+
+/* ************************************************************************ */
+/* Custom Font Setup: http://www.fontsquirrel.com/tools/webfont-generator   */
+/* ************************************************************************ */
+@font-face {
+    font-family: 'sf360';
+    src: url('../fonts/sf360/sf_360rt-webfont.eot');
+    src: url('../fonts/sf360/sf_360rt-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/sf360/sf_360rt-webfont.woff2') format('woff2'),
+         url('../fonts/sf360/sf_360rt-webfont.woff') format('woff'),
+         url('../fonts/sf360/sf_360rt-webfont.ttf') format('truetype'),
+         url('../fonts/sf360/sf_360rt-webfont.svg#sf_360rtregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+// Bourbon font declaration shorthand instead of the above stack:
+//@include font-face("sf360", "/fonts/sf360/sf_360rt-webfont", normal, normal);
+
+$fs-sf360 : 'sf360', sans-serif;
+@mixin sf360($fontcolor:$black) { font-family:$fs-sf360; font-weight:100; color:#{$fontcolor}; }
+
+// Example usage: 
+/*
+.example {
+    @include sf360(#ffffff);        <-- color is optional, defaults to black
+    @include sf360($red);           <-- or use a $variable
+}
+*/
+
+
+/* ************************************************************************ */
+/* General Site Typography                                                  */
+/* ************************************************************************ */
+$text-block-spacing: 1.2em;
+$link-color: #ff0000;
+$link-hover-type : ease;
+$link-hover-speed : 0.25s; 
+
+
+/* Default */
+body {
+    @include font-feature-settings("kern", "liga", "pnum");
+    -webkit-font-smoothing: antialiased;
+    color: $black;
+    font-family: $fs-roboto-reg;
+    font-size: 100%;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  @include roboto-thin();
+
+    strong { 
+        @include roboto-lite();
+        color:inherit;  
+    }
+
+    font-family: $fs-roboto-reg;
+    line-height: 1em;
+    margin: 0 0 $text-block-spacing;
+}
+
+h1 {
+    font-size:rem(56);
+    margin: 0 0 $text-block-spacing / 3;
+
+    @include media($desktop) { 
+        font-size:rem(54);
+    }
+
+    @include media($tablet) { 
+        font-size:rem(42);
+    }
+
+    @include media($mobile) { 
+        font-size:rem(40);
+    }
+}
+
+/* Paragraphs */
+p {
+    margin: 0 0 $text-block-spacing;
+}
+
+/* Links */
+a { 
+    color:$link-color; 
+    text-decoration:none; 
+    transition:color $link-hover-type $link-hover-speed;
+
+    &:active, &:hover, &:focus { 
+        color:darken($link-color, 10%); 
+        outline:none; 
+    }
+}

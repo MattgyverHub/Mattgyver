@@ -1,0 +1,51 @@
+/* ************************************************************************ */
+/* Breakpoints for use with Bourbon Neat - http://neat.bourbon.io/          */
+/* ************************************************************************ */
+$mobile-breakpoint : em(480);
+$tablet-breakpoint : em(992);
+$desktop-breakpoint : em(1280);
+
+$mobile: new-breakpoint(max-width $mobile-breakpoint, 4);
+$tablet: new-breakpoint(min-width $mobile-breakpoint + em(1) max-width $tablet-breakpoint);
+$desktop: new-breakpoint(min-width $tablet-breakpoint + em(1) max-width $desktop-breakpoint);
+$theater: new-breakpoint(min-width $desktop-breakpoint + em(1));
+
+$small-screens: new-breakpoint(max-width $tablet-breakpoint);
+$large-screens: new-breakpoint(min-width $tablet-breakpoint + em(1));
+
+
+// Example usage: 
+/*
+.example {
+
+	// Base css for this class
+	display:block;
+	width:50%;
+	height:50%;
+	background-color:pink;
+
+	// Do different things with this class on large vs. small screens
+	@include media($large-screens) { 
+		
+    }
+    @include media($small-screens) { 
+		
+    }
+
+	// Do different things with this class at these four discreet breakpoints
+	@include media($mobile) { 
+		background-color:red;	
+    }
+    @include media($tablet) { 
+		background-color:orange;	
+    }
+    @include media($desktop) { 
+		background-color:yellow;	
+    }
+    @include media($theater) { 
+		background-color:green;	
+    }
+
+}
+
+*/

@@ -1,7 +1,7 @@
 # Mattgyver Baseline Project
 This is my baseline bower.json, package.json, and gulpfile.js inits for new projects. The following are my working notes on installing a great baseline responsive website and front-end workflow using SASS, Bower, and Gulp. The responsive framework will be Bourbon, Neat, and Bitters, and includes jQuery, Font-Awesome, and some various other goodies. All the files will be minified, and things will happen automatically. It should be great - so let's begin!
 
-## **Step 1:** Intial setup of environment and applications. 
+## **Step 1:** Intial setup of environment and applications.  
 
 This is a one-time deal to get the primary frameworks installed on your machine. Heads-up, you will be using PowerShell (Windows) to do lots of command line goodness. It's not so scary. I'm here to help!
 
