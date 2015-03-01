@@ -1,5 +1,44 @@
-# Mattgyver Baseline Project
-This is my baseline bower.json, package.json, and gulpfile.js inits for new projects. The following are my working notes on installing a great baseline responsive website and front-end workflow using SASS, Bower, and Gulp. The responsive framework will be Bourbon, Neat, and Bitters, and includes jQuery, Font-Awesome, and some various other goodies. All the files will be minified, and things will happen automatically. It should be great - so let's begin!
+# Boilerplate Webapp Template 
+**This is intended to be mostly copy+paste. You won't need any power shell or command line knowledge to begin. Prepros is required ($30 https://prepros.io/)**
+
+The following are working notes on beginning a web project with a solid baseline responsive website/webapp and front-end workflow using Node, Bower, Sass, Bourbon, Prepros, and other goodies. This build supports all the major browsers as well as IE9 and newer. It includes the popular Font Awesome icons, jQuery, and a responsive grid set with typical breakpoints. This webapp boilerplate structure is created specifically to be used with Prepros 5+.
+
+## Getting Started
+1. Download the project folder or clone the repo
+2. Open Prepros and add the project folder
+3. Adjust the output settings on the app.scss, app.js, and libs.js files to generate the min versions. See the prepros_settings screenshots on how this is set up.
+4. Click Live Preview and your site should now be running live in the browser (localhost:8000 usually). 
+
+Any changes you make to the scss and js files will be automatically injected/loaded the view in your browser. You can have many browsers open, they will all refresh and scroll in sync with each other. It's glorious. You can also send the url to your phone and tablet for multi-screen auto-refresh development (or use Adobe Edge for live mobile/tablet previews).
+
+#### Notable Elements
+- Base HTML5 template generated from: Initializr (http://www.initializr.com/)
+- jQuery 1.11.2 (http://jquery.com/)
+- Modernizr 2.8.3 (http://modernizr.com/)
+- Respond 1.4.2 (https://github.com/scottjehl/Respond)
+- Detect Mobile Browser implemented (http://detectmobilebrowser.com/)
+- Sass mixins: Bourbon (http://bourbon.io/)
+- Responsive framework: Bourbon Neat (http://neat.bourbon.io/)
+- Font Awesome implemented (http://fortawesome.github.io/)
+- Breakpoints set to the four primary screen sizes (easy to change or add more)
+- Google fonts and custom fonts implemented (easy to swap)
+
+*Quick note on Bourbon mixins: any Bourbon mixin that involves prefixing elements (-moz, -o, -webkit, etc...) will instead be handled by Prepros' built-in autoprefixer. It uses the latest auto-prefix libs so the Bourbon prefixes aren't needed. There are still plenty of great mixins to use in Bourbon however, you just won't need the auto-prefix ones.*
+
+#### Forms & Inputs Not Included
+This wbeapp build does not have a button theme, navigation menu, form inputs, sticky headers/sidebars, or overall UI. Recommend using Semantic UI (http://semantic-ui.com/) even though it hasn't been properly converted to Sass. The library is a bit bloated, so you should only use what you need. Most elements (buttons, dividers, images) are purely CSS and customizable. Other components each require their own js lib in addition to the CSS (modals, dropdowns, progress bars, sticky bars). 
+
+As a general rule of thumb, if what you are looking for isn't available from Bourbon Refills' patterns/componentsn (http://refills.bourbon.io/), then get it from Semantic UI. Find the component and hit the download button.
+
+#### Preprocessing: Prepros vs. Gulp vs. Grunt
+**This project uses Prepros** as the front end task running solution. Automatic watching and concatenation of files, minification, source maps, Sass processing, browser refresh and synchronization are all handled by Prepros. 
+
+Grunt (http://gruntjs.com/) and Gulp are fantastic (especially Gulp http://gulpjs.com/), and can do all that and more, but require a lot more setup and command-line management. All the key features are basically available in Prepros, with nearly zero setup time. Additionally, Gulp on PC has issues due to folder/file name length restrictions. Windows 8 failed to complete a node package installation of Gulp-Sass, which made Sass unusable when using the Gulp node package. 
+
+
+
+# Old Stuff
+What follows are my initial setup instructions to get things running with Gulp. I left the details here because occasionally I need to get into Bower and download a package for one thing or another. You can also see how it's about 20 steps instead of 4.
 
 ## **Step 1:** Intial setup of environment and applications.  
 
@@ -38,7 +77,7 @@ This will get all the baseline goodies added to the site; Bourbon, Neat, Bitters
 3. **Install Bourbon Bitters:** Type *gem install bitters* (one time only - won't need to do this on future setups)
 4. then "cd " into the scss directory and type *bitters install*. Bitters is the UI chrome skin basically, similar in appearance to Bootstrap's chrome.
 
-### Add vis Bower any useful tools. It's probably easier for me to still manually gather these libs to keep the overall project files to a minimum. Building sites in the cloud keeps the file qty to a reasonable amount by hand-gathering any specific js libs. I don't need the entire jQuery assets and source, so only grab the single required file.
+Add vis Bower any useful tools. It's probably easier for me to still manually gather these libs to keep the overall project files to a minimum. Building sites in the cloud keeps the file qty to a reasonable amount by hand-gathering any specific js libs. I don't need the entire jQuery assets and source, so only grab the single required file.
 
 1. **Install jQuery:** Type *bower install --save jquery* 
 2. **Install modernizr:** Type *bower install --save modernizr* 
