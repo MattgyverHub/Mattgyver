@@ -72,7 +72,7 @@ img, picture {
 
 .faded { 
     opacity:.6; 
-    transition: opacity $speed; 
+    transition: opacity $transition-type $transition-speed; 
 
     &:hover {
         opacity:1;
@@ -120,27 +120,37 @@ header {
     .header-logo { 
         @include span-columns(8);
         background-color:$red;
+        height: 100px;
 
         @include media($tablet) { 
             background-color:$blue;
+            height: 60px;
         }
 
         @include media($mobile) { 
-            background-color:$offwhite;
+            background-color:$green;
+            height: 40px;
         }
     }
 
     .header-menu {
         @include span-columns(4);
         background-color:$yellow;
+        height: 100px;
 
         @include media($tablet) { 
             background-color:$gray;
+            height: 60px;
         }
 
-        @include media($black) { 
-            background-color:$offwhite;
+        @include media($mobile) { 
+            background-color:$black;
+            height: 40px;
         }
+    }
+
+    @include media($mobile) { 
+        @include pad(15px); 
     }
 }
 
