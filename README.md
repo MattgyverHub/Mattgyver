@@ -26,9 +26,9 @@ Any changes you make to the scss and js files will be automatically injected/loa
 *Quick note on Bourbon mixins: any Bourbon mixin that involves prefixing elements (-moz, -o, -webkit, etc...) will instead be handled by Prepros' built-in autoprefixer. It uses the latest auto-prefix libs so the Bourbon prefixes aren't needed. There are still plenty of great mixins to use in Bourbon however, you just won't need the auto-prefix ones.*
 
 #### Forms & Inputs Not Included
-This wbeapp build does not have a button theme, navigation menu, form inputs, sticky headers/sidebars, or overall UI. Recommend using Semantic UI (http://semantic-ui.com/) even though it hasn't been properly converted to Sass. The library is a bit bloated, so you should only use what you need. Most elements (buttons, dividers, images) are purely CSS and customizable. Other components each require their own js lib in addition to the CSS (modals, dropdowns, progress bars, sticky bars). 
+This wbeapp build does not have a button theme, navigation menu, form inputs, sticky headers/sidebars, or overall UI. Recommend using Material UI (http://materializecss.com/) even though it hasn't been properly converted to Sass.
 
-As a general rule of thumb, if what you are looking for isn't available from Bourbon Refills' patterns/componentsn (http://refills.bourbon.io/), then get it from Semantic UI. Find the component and hit the download button.
+As a general rule of thumb, if what you are looking for isn't available from Bourbon Refills' patterns/componentsn (http://refills.bourbon.io/), then get it from Material UI. There's a bit of overlap, so choose your flavor and disable the other. 
 
 #### Preprocessing: Prepros vs. Gulp vs. Grunt
 **This project uses Prepros** as the front end task running solution. Automatic watching and concatenation of files, minification, source maps, Sass processing, browser refresh and synchronization are all handled by Prepros. 
